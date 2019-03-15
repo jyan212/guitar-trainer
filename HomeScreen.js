@@ -17,7 +17,7 @@ export default class HomeScreen extends React.Component {
                         }} 
                         onPress={()=> this.props.navigation.navigate('NoteTraining')}
                         >
-                        <Text style={{fontFamily:'sans-serif',fontWeight:'bold',fontSize:35,marginLeft:10}}>Notes Trainer</Text>
+                        <Text style={styles.fontSty}>Notes Trainer</Text>
                     </TouchableOpacity>
                 <TouchableOpacity style={{
                     flex:1, 
@@ -26,19 +26,19 @@ export default class HomeScreen extends React.Component {
                     alignItems:'center'
                     }} 
                     >
-                    <Text style={{fontFamily:'sans-serif',fontWeight:'bold',fontSize:35,marginLeft:10}}>Metronome</Text>
+                    <Text style={styles.fontSty}>Metronome</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.row}>
                 <TouchableOpacity style={{flex:1, backgroundColor: 'skyblue', justifyContent:"center",
                     alignItems:'center'}}>
-                    <Text style={{fontFamily:'sans-serif',fontWeight:'bold',fontSize:35,marginLeft:10}}>Coming Soon</Text>
+                    <Text style={styles.fontSty}>Coming Soon</Text>
                 </TouchableOpacity>
                 </View>
                 <View style={styles.row}>
                 <TouchableOpacity style={{flex:1, backgroundColor: 'steelblue', justifyContent:"center",
                     alignItems:'center'}}>
-                    <Text style={{fontFamily:'sans-serif',fontWeight:'bold',fontSize:35,marginLeft:10}}>About</Text>
+                    <Text style={styles.fontSty}>About</Text>
                 </TouchableOpacity>
                 </View>
           </View>
@@ -54,6 +54,11 @@ const styles = StyleSheet.create({
     row:{
         flex:1,
         flexDirection:'row'
-    }
+    },
+    fontSty:{
+        fontFamily:'sans-serif',
+        fontWeight:'bold',
+        fontSize:30,
+        marginLeft:10}
 
   });

@@ -24,6 +24,8 @@
     ],
     "ios": {
       "supportsTablet": true
-    }
+    },
+    "description": "guitar trainer app",
+    "githubUrl": "https://github.com/jyan212/guitar-trainer"
   }
 }

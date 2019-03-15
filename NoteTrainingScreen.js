@@ -1,7 +1,8 @@
 import React from 'react';
 import {StyleSheet, Text, View,Button,TouchableHighlight } from 'react-native';
-import { Overlay } from 'react-native-elements'
+import { Overlay, Slider } from 'react-native-elements'
 export default class NoteTrainingScreen extends React.Component {
+ 
    constructor(props){
        super(props)
        this.state = {
@@ -15,14 +16,11 @@ export default class NoteTrainingScreen extends React.Component {
        this.handlingAbout = this.handlingAbout.bind(this);
        this.handlingPress = this.handlingPress.bind(this);
        this.handlingStop = this.handlingStop.bind(this);
+       this.changeBPM = this.changeBPM.bind(this);
    }
-   
    //should component update? only update when timer is true.
    //only happen after component update ( setState / forceUpdate );
-   //changed id to key
-    _keyExtractor = (item, index) => item.key;
-
-    
+  //
     handlingAbout(){
         this.setState({
             isVisible : true,
@@ -34,6 +32,7 @@ export default class NoteTrainingScreen extends React.Component {
         })
     }
     handlingPress(){
+        // use setState instead next time
         this.state.timer = true;
         this.interval = setInterval(()=>{
             this.tick();
@@ -41,6 +40,7 @@ export default class NoteTrainingScreen extends React.Component {
 
     }
     handlingStop(){
+        // use setState instead of = 
         this.state.guitarNotes[this.state.index].active = false;
         this.state.index = 0;
         this.state.timer = false;
@@ -58,6 +58,12 @@ export default class NoteTrainingScreen extends React.Component {
         }else{
            this.state.index = 0;
         }
+    }
+    changeBPM(){
+        //change bpm to ms
+        bpmMS = 60000/(Math.floor(this.state.value));
+        this.setState({bpm: bpmMS})
+        this.handlingStop();
     }
     shuffle(array) {
         var currentIndex = array.length, temporaryValue, randomIndex;
@@ -86,13 +92,29 @@ export default class NoteTrainingScreen extends React.Component {
                 windowBackgroundColor="rgba(255, 255, 255, .5)"
                 overlayBackgroundColor="white"
                 onBackdropPress={() => this.setState({ isVisible: false })}
-                width="auto"
-                height="auto"
+                width="90%"
+                height="85%"
+                style={{ flex: 1, alignItems: 'center', justifyContent: 'center'}}
                 >
                 <View>
+                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center',marginTop:50}}>
                 <Text>This training will help you to memorize</Text>
                 <Text>each notes on your guitar string!</Text>
                 <Text>Try memorize each string at first!</Text>
+                </View>
+                <View style={{ flex: 1, alignItems: 'stretch', justifyContent: 'center',marginTop: 350}}>
+                         <Text>BPM: {this.state.value==null ? 20 : Math.floor(this.state.value)}</Text>
+                        <Slider
+                        value={this.state.value}
+                        onValueChange={value => this.setState({ value })}
+                        minimumValue={20}
+                        maximumValue={160}
+                        />
+                        
+                        </View>
+                        <View style={{marginTop:35}}>
+                        <Button onPress={this.changeBPM} disabled={this.state.value==null ? true : false} title="Set BPM" buttonStyle={{width:'auto'}}/>
+                        </View>
                 </View>
                 </Overlay>
                 <View style={styles.row}>
@@ -177,7 +199,10 @@ export default class NoteTrainingScreen extends React.Component {
                 <TouchableHighlight 
                 onPress={this.state.timer ? this.handlingStop: this.handlingPress}
                 style={{flex:1, backgroundColor: 'lightgreen', justifyContent:"center",alignItems:'center'}}>
-                <Text>{this.state.timer ? 'STOP' : 'START'}</Text>
+                <View>
+                <Text>{this.state.timer ? 'STOP' : 'START '}</Text>
+                <Text>BPM: {60000/this.state.bpm}</Text>
+                </View>
                 </TouchableHighlight>
                 <TouchableHighlight 
                 onPress={this.handlingAbout}
