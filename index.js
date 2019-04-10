@@ -9,7 +9,7 @@ export default class App extends React.Component {
             <div>
                 <p>{
                     socket.on(
-                        'msg',(a)=>{a}
+                        'msg',(a)=>{return a}
                     )
                 }</p>
             </div>
